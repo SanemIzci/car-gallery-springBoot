@@ -1,10 +1,10 @@
 package com.sanemizci.starter.config;
+
 import com.sanemizci.starter.Model.User;
 import com.sanemizci.starter.Repository.UserRepository;
 import com.sanemizci.starter.exception.BaseException;
 import com.sanemizci.starter.exception.ErrorMessage;
 import com.sanemizci.starter.exception.MessageType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,8 +21,12 @@ import java.util.Optional;
 @Configuration
 public class AppConfig {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    // Constructor injection (field @Autowired yerine daha temiz)
+    public AppConfig(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -31,28 +35,25 @@ public class AppConfig {
             if (optional.isEmpty()) {
                 throw new BaseException(new ErrorMessage(MessageType.USERNAME_NOT_FOUND, username));
             }
-            return optional.get();
+            return optional.get(); // User implements UserDetails
         };
     }
-    
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();//Auth işlemini yapar
-        authProvider.setUserDetailsService(userDetailsService());//DB'den kullancıyı nasıl bulacağımızı söyler
-        authProvider.setPasswordEncoder(bCryptPasswordEncoder());//şifrelerin nasıl karşılanacağı söylenir
-        return authProvider;
-    }
-
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    
+    @Bean
+    public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
+    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 }
+
