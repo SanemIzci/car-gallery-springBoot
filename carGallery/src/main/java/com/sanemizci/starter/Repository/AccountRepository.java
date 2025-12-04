@@ -1,4 +1,8 @@
 package com.sanemizci.starter.Repository;
 
-public interface AccountRepository {
+import com.sanemizci.starter.Model.Account;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AccountRepository extends JpaRepository<Account,Long> {
+
 }
