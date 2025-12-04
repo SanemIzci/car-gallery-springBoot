@@ -1,5 +1,6 @@
 package com.sanemizci.starter.config;
 
+import com.sanemizci.starter.Handler.AuthEntryPoint;
 import com.sanemizci.starter.jwt.JWTAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,26 +18,31 @@ public class SecurityConfig {
 
     public static final String REGISTER="/register";
     public static final String AUTHENTICATE="/authenticate";
-    public static final String REFRESH_TOKEN="/refresh_token";
+    public static final String REFRESH_TOKEN="/refresh-token";
 
     @Autowired
     private JWTAuthenticationFilter jwtAuthenticationFilter;
     @Autowired
     private AuthenticationProvider authenticationProvider;
-
+    @Autowired
+    private AuthEntryPoint authEntryPoint;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())//csrf korumasını devre dışı bırakır
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(REGISTER, AUTHENTICATE, REFRESH_TOKEN).permitAll()
-                .anyRequest().authenticated())
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authenticationProvider(authenticationProvider)
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(REGISTER, AUTHENTICATE, REFRESH_TOKEN).permitAll()
+                        .anyRequest().authenticated()
+                )
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(authEntryPoint))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
-        
     }
+
 
 
 }
