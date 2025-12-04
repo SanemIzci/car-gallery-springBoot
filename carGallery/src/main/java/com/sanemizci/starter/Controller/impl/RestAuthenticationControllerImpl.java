@@ -4,7 +4,10 @@ import com.sanemizci.starter.Controller.IRestAuthenticationController;
 import com.sanemizci.starter.Controller.RestBaseController;
 import com.sanemizci.starter.Controller.RootEntity;
 import com.sanemizci.starter.Dto.AuthRequest;
+import com.sanemizci.starter.Dto.AuthResponse;
 import com.sanemizci.starter.Dto.DtoUser;
+import com.sanemizci.starter.Dto.RefreshTokenRequest;
+import com.sanemizci.starter.Model.RefreshToken;
 import com.sanemizci.starter.Service.IAuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +23,15 @@ public class RestAuthenticationControllerImpl extends RestBaseController impleme
     @Override
     public RootEntity<DtoUser> register(@Valid @RequestBody AuthRequest authRequest) {
         return ok(authenticationService.register(authRequest));
+    }
+    @PostMapping("/authenticate")
+    @Override
+    public RootEntity<AuthResponse> authenticate(@Valid @RequestBody AuthRequest authRequest) {
+        return ok(authenticationService.authenticate(authRequest));
+    }
+    @PostMapping("/refresh-token")
+    @Override
+    public RootEntity<AuthResponse> refreshToken(RefreshTokenRequest request) {
+        return ok(authenticationService.refreshToken(request));
     }
 }
