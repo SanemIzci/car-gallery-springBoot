@@ -22,6 +22,6 @@ public class Gallery extends BaseEntity{
     private String lastName;
 
     @OneToOne
-    private Adress address;
+    private Address address;
 
 }

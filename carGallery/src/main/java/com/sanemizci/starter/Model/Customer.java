@@ -28,7 +28,7 @@ public class Customer extends BaseEntity {
     private Date dateOfBirth;
 
     @OneToOne
-    private Adress adress;
+    private Address address;
 
     @OneToOne
     private Account account;
