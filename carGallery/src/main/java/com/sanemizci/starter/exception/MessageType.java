@@ -14,7 +14,7 @@ public enum MessageType {
     REFRESH_TOKEN_NOT_FOUND("1008","Refresh token not found"),
     REFRESH_TOKEN_EXPIRED("1009","Refresh token expired");
 
-
+    
     private String code;
 
     private String message;
