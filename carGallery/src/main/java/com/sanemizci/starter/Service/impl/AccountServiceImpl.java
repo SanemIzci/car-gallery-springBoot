@@ -17,6 +17,7 @@ public class AccountServiceImpl implements IAccountService {
     private AccountRepository accountRepository;
 
 
+
     private Account createAccount(DtoAccountIU dtoAccountIU) {
         Account account = new Account();
         account.setCreateTime(new Date());
@@ -31,5 +32,9 @@ public class AccountServiceImpl implements IAccountService {
         Account savedAccount = accountRepository.save(createAccount(dtoAccountIU));
         BeanUtils.copyProperties(savedAccount, dtoAccount);
         return dtoAccount;
+    }
+    @Override
+    public DtoAccount deleteAccount(Long id) {
+        return null;
     }
 }
