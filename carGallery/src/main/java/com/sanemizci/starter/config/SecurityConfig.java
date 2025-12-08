@@ -1,6 +1,6 @@
 package com.sanemizci.starter.config;
 
-import com.sanemizci.starter.Handler.AuthEntryPoint;
+import com.sanemizci.starter.handler.AuthEntryPoint;
 import com.sanemizci.starter.jwt.JWTAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

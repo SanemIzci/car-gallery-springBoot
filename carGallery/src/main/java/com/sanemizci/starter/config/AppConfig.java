@@ -1,7 +1,7 @@
 package com.sanemizci.starter.config;
 
-import com.sanemizci.starter.Model.User;
-import com.sanemizci.starter.Repository.UserRepository;
+import com.sanemizci.starter.model.User;
+import com.sanemizci.starter.repository.UserRepository;
 import com.sanemizci.starter.exception.BaseException;
 import com.sanemizci.starter.exception.ErrorMessage;
 import com.sanemizci.starter.exception.MessageType;
@@ -11,9 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;

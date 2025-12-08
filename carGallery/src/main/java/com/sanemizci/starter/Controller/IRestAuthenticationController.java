@@ -1,9 +1,9 @@
-package com.sanemizci.starter.Controller;
+package com.sanemizci.starter.controller;
 
-import com.sanemizci.starter.Dto.AuthRequest;
-import com.sanemizci.starter.Dto.AuthResponse;
-import com.sanemizci.starter.Dto.DtoUser;
-import com.sanemizci.starter.Dto.RefreshTokenRequest;
+import com.sanemizci.starter.dto.AuthRequest;
+import com.sanemizci.starter.dto.AuthResponse;
+import com.sanemizci.starter.dto.DtoUser;
+import com.sanemizci.starter.dto.RefreshTokenRequest;
 
 
 public interface IRestAuthenticationController {

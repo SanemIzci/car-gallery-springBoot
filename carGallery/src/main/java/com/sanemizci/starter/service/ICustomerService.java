@@ -1,8 +1,7 @@
-package com.sanemizci.starter.Service;
+package com.sanemizci.starter.service;
 
-import com.sanemizci.starter.Controller.RootEntity;
-import com.sanemizci.starter.Dto.DtoCustomer;
-import com.sanemizci.starter.Dto.DtoCustomerIU;
+import com.sanemizci.starter.dto.DtoCustomer;
+import com.sanemizci.starter.dto.DtoCustomerIU;
 
 public interface ICustomerService {
 

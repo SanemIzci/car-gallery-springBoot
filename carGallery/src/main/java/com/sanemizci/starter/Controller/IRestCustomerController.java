@@ -1,7 +1,7 @@
-package com.sanemizci.starter.Controller;
+package com.sanemizci.starter.controller;
 
-import com.sanemizci.starter.Dto.DtoCustomer;
-import com.sanemizci.starter.Dto.DtoCustomerIU;
+import com.sanemizci.starter.dto.DtoCustomer;
+import com.sanemizci.starter.dto.DtoCustomerIU;
 
 public interface IRestCustomerController {
     public RootEntity<DtoCustomer> saveCustomer(DtoCustomerIU dtoCustomerIU);

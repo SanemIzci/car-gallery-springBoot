@@ -1,10 +1,10 @@
-package com.sanemizci.starter.Service.impl;
+package com.sanemizci.starter.service.impl;
 
-import com.sanemizci.starter.Dto.DtoAccount;
-import com.sanemizci.starter.Dto.DtoAccountIU;
-import com.sanemizci.starter.Model.Account;
-import com.sanemizci.starter.Repository.AccountRepository;
-import com.sanemizci.starter.Service.IAccountService;
+import com.sanemizci.starter.dto.DtoAccount;
+import com.sanemizci.starter.dto.DtoAccountIU;
+import com.sanemizci.starter.model.Account;
+import com.sanemizci.starter.repository.AccountRepository;
+import com.sanemizci.starter.service.IAccountService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.sanemizci.starter.Controller;
+package com.sanemizci.starter.controller;
 
 public class RestBaseController {
 

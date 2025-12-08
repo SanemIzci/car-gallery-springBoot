@@ -1,9 +1,8 @@
-package com.sanemizci.starter.Controller;
+package com.sanemizci.starter.controller;
 
 
-import com.sanemizci.starter.Dto.DtoAccount;
-import com.sanemizci.starter.Dto.DtoAccountIU;
-import com.sanemizci.starter.Model.Account;
+import com.sanemizci.starter.dto.DtoAccount;
+import com.sanemizci.starter.dto.DtoAccountIU;
 
 public interface IRestAccountController {
     public RootEntity<DtoAccount> createAccount(DtoAccountIU dtoAccountIU);
