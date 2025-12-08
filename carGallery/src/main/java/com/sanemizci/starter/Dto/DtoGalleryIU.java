@@ -1,4 +1,4 @@
-package com.sanemizci.starter.Dto;
+package com.sanemizci.starter.dto;
 
 
 import jakarta.validation.constraints.NotNull;
@@ -18,5 +18,5 @@ public class DtoGalleryIU {
     @NotNull
     private String lastName;
     @NotNull
-    private Long address;
+    private Long address_id;
 }
