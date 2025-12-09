@@ -5,4 +5,5 @@ import com.sanemizci.starter.dto.DtoGalleryIU;
 
 public interface IRestGalleryController {
     public RootEntity<DtoGallery> createGallery(DtoGalleryIU dtoGalleryIU);
+    public RootEntity<DtoGallery> getGalleryById(Long id);
 }

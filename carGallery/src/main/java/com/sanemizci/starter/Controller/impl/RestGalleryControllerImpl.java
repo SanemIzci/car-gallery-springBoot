@@ -7,10 +7,7 @@ import com.sanemizci.starter.dto.DtoGalleryIU;
 import com.sanemizci.starter.service.IGalleryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import static com.sanemizci.starter.controller.RootEntity.ok;
 
@@ -24,5 +21,10 @@ public class RestGalleryControllerImpl implements IRestGalleryController {
     @Override
     public RootEntity<DtoGallery> createGallery(@Valid @RequestBody DtoGalleryIU dtoGalleryIU) {
         return ok(galleryService.saveGallery(dtoGalleryIU));
+    }
+    @GetMapping("/{id}")
+    @Override
+    public RootEntity<DtoGallery> getGalleryById(@PathVariable Long id) {
+        return ok(galleryService.getGalleryById(id));
     }
 }

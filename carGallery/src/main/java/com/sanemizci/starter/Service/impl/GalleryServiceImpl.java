@@ -1,5 +1,6 @@
 package com.sanemizci.starter.service.impl;
 
+import com.sanemizci.starter.dto.DtoAddress;
 import com.sanemizci.starter.dto.DtoGallery;
 import com.sanemizci.starter.dto.DtoGalleryIU;
 import com.sanemizci.starter.model.Address;
@@ -42,6 +43,13 @@ public class GalleryServiceImpl implements IGalleryService {
         gallery.setAddress(optAddress.get());
         return gallery;
     }
+    private Gallery findGalleryById(Long id) {
+        Optional<Gallery> optGallery = galleryRepository.findById(id);
+        if (optGallery.isEmpty()) {
+            throw new BaseException(new ErrorMessage(MessageType.NO_RECORD_EXISTS, "Gallery with ID " + id + " not found"));
+        }
+        return  optGallery.get();
+    }
 
     @Override
 
@@ -58,5 +66,29 @@ public class GalleryServiceImpl implements IGalleryService {
         }
 
         return dtoGallery;
+    }
+
+    @Override
+    public DtoGallery getGalleryById(Long id) {
+        Gallery gallery = findGalleryById(id);
+        DtoGallery dtoGallery = new DtoGallery();
+        DtoAddress dtoAddress = new DtoAddress();
+        if (gallery.getAddress() != null) {
+            BeanUtils.copyProperties(gallery.getAddress(), dtoAddress);
+            dtoGallery.setAddress(dtoAddress);
+            dtoGallery.setAddress_id(gallery.getAddress().getId());
+        }
+        BeanUtils.copyProperties(gallery, dtoGallery);
+        return dtoGallery;
+    }
+
+    @Override
+    public DtoGallery updateGallery(Long id, DtoGalleryIU dtoGalleryIU) {
+        return null;
+    }
+
+    @Override
+    public DtoGallery deleteGallery(Long id) {
+        return null;
     }
 }
