@@ -7,10 +7,7 @@ import com.sanemizci.starter.dto.DtoAccountIU;
 import com.sanemizci.starter.service.IAccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.sanemizci.starter.controller.RootEntity.ok;
 
@@ -26,4 +23,21 @@ public class RestAccountControllerImpl implements IRestAccountController {
     public RootEntity<DtoAccount> createAccount(@Valid @RequestBody DtoAccountIU dtoAccountIU) {
         return ok(accountService.saveAccount(dtoAccountIU));
     }
+    @DeleteMapping("/{id}")
+    @Override
+    public RootEntity<DtoAccount> deleteAccount(@Valid @PathVariable Long id) {
+        return ok(accountService.deleteAccount(id));
+    }
+    @GetMapping("/{id}")
+    @Override
+    public RootEntity<DtoAccount> getAccountById( @Valid @PathVariable Long id) {
+        return ok(accountService.getAccountById(id));
+    }
+    @PutMapping("/{id}")
+    @Override
+    public RootEntity<DtoAccount> updateAccount(@PathVariable Long id, @Valid @RequestBody DtoAccountIU dtoAccountIU) {
+        return ok(accountService.updateAccount(id, dtoAccountIU));
+    }
+
+
 }
