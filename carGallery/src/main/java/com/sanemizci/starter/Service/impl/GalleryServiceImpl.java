@@ -43,26 +43,28 @@ public class GalleryServiceImpl implements IGalleryService {
         gallery.setAddress(optAddress.get());
         return gallery;
     }
+
     private Gallery findGalleryById(Long id) {
         Optional<Gallery> optGallery = galleryRepository.findById(id);
         if (optGallery.isEmpty()) {
             throw new BaseException(new ErrorMessage(MessageType.NO_RECORD_EXISTS, "Gallery with ID " + id + " not found"));
         }
-        return  optGallery.get();
+        return optGallery.get();
     }
 
     @Override
-
     public DtoGallery saveGallery(DtoGalleryIU dtoGalleryIU) {
 
         Gallery savedGallery = galleryRepository.save(createGallery(dtoGalleryIU));
 
-
         DtoGallery dtoGallery = new DtoGallery();
+        DtoAddress dtoAddress = new DtoAddress();
         BeanUtils.copyProperties(savedGallery, dtoGallery);
 
         if (savedGallery.getAddress() != null) {
+            BeanUtils.copyProperties(savedGallery.getAddress(), dtoAddress);
             dtoGallery.setAddress_id(savedGallery.getAddress().getId());
+            dtoGallery.setAddress(dtoAddress);
         }
 
         return dtoGallery;
@@ -84,11 +86,58 @@ public class GalleryServiceImpl implements IGalleryService {
 
     @Override
     public DtoGallery updateGallery(Long id, DtoGalleryIU dtoGalleryIU) {
-        return null;
+        Gallery gallery = findGalleryById(id);
+
+        
+        gallery.setFirstName(dtoGalleryIU.getFirstName());
+        gallery.setLastName(dtoGalleryIU.getLastName());
+
+
+        if (dtoGalleryIU.getAddress_id() != null) {
+            Optional<Address> optAddress = addressRepository.findById(dtoGalleryIU.getAddress_id());
+            if (optAddress.isEmpty()) {
+                throw new BaseException(new ErrorMessage(
+                        MessageType.NO_RECORD_EXISTS,
+                        "Address with ID " + dtoGalleryIU.getAddress_id() + " not found"
+                ));
+            }
+            gallery.setAddress(optAddress.get());
+        }
+
+        Gallery updatedGallery = galleryRepository.save(gallery);
+
+
+        DtoGallery dtoGallery = new DtoGallery();
+        DtoAddress dtoAddress = new DtoAddress();
+        BeanUtils.copyProperties(updatedGallery, dtoGallery);
+        if (updatedGallery.getAddress() != null) {
+            BeanUtils.copyProperties(updatedGallery.getAddress(), dtoAddress);
+            dtoGallery.setAddress(dtoAddress);
+            dtoGallery.setAddress_id(updatedGallery.getAddress().getId());
+        }
+
+        return dtoGallery;
     }
 
     @Override
     public DtoGallery deleteGallery(Long id) {
-        return null;
+        Gallery gallery = findGalleryById(id);
+        DtoGallery dtoGallery = new DtoGallery();
+        DtoAddress dtoAddress = new DtoAddress();
+
+        // Copy gallery basic fields (includes id, createTime, first/lastName)
+        BeanUtils.copyProperties(gallery, dtoGallery);
+
+        // Copy address info if present
+        if (gallery.getAddress() != null) {
+            BeanUtils.copyProperties(gallery.getAddress(), dtoAddress);
+            dtoGallery.setAddress(dtoAddress);
+            dtoGallery.setAddress_id(gallery.getAddress().getId());
+        }
+
+        // Delete after DTO is prepared
+        galleryRepository.delete(gallery);
+
+        return dtoGallery;
     }
 }

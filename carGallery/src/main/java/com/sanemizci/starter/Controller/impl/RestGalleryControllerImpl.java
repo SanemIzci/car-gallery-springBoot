@@ -27,4 +27,18 @@ public class RestGalleryControllerImpl implements IRestGalleryController {
     public RootEntity<DtoGallery> getGalleryById(@PathVariable Long id) {
         return ok(galleryService.getGalleryById(id));
     }
+    @DeleteMapping("/{id}")
+    @Override
+    public RootEntity<DtoGallery> deleteGallery(@PathVariable Long id) {
+        return ok(galleryService.deleteGallery(id));
+    }
+    @PutMapping("/{id}")
+    @Override
+    public RootEntity<DtoGallery> updateGallery(@PathVariable Long id, @Valid @RequestBody DtoGalleryIU dtoGalleryIU) {
+        return ok(galleryService.updateGallery(id, dtoGalleryIU));
+    }
+
+
+
+
 }
